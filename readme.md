@@ -22,7 +22,7 @@ This will bind local port 80 to the container's port 80. This means you should b
 * `-d webapp` - Use the image tagged "webapp"
 * `/sbin/my_init` - Run the init scripts used to kick off long-running processes and other bootstrapping, as per [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker)
 * `--enable-insecure-key` - Enable a generated SSL key so you can SSH into the container, again as per [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker). Generate your own SSH key for production use.
-* If you use this with [fideloper/docker-mysql](https://github.com/fideloper/docker-mysql), then [link this container](http://docs.docker.io/en/latest/use/working_with_links_names/) with MySQL's (after running the MySQL container first) via `-link mysql:db`
+* If you use this with [fideloper/docker-mysql](https://github.com/fideloper/docker-mysql), then [link this container](http://docs.docker.io/en/latest/use/working_with_links_names/) with MySQL's (after running the MySQL container first) via `-link mysql:db` - This container assumes the use of SQLite as your DB of choice
 
 
 Compiler is included in this image, along with the binary for Laravel. This allows you to login to the container:
@@ -35,6 +35,12 @@ docker exec -t -i <docker-id> /bin/bash
 # Once at the command line
 cd /var/www/
 laravel new <project-name>
+```
+
+Don't forget to change the permissions on your storage folder for logs and Laravel specific cache to be created
+ 
+```bash
+ chmod -R og+rw storage
 ```
 
 
