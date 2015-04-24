@@ -47,7 +47,7 @@ RUN chmod +x        /etc/service/phpfpm/run
 ADD build/set_env.sh /etc/profile.d/set_term.sh
 
 # Add volume support for Kitematic
-VOLUME ["/website_data"]
+VOLUME ["/var/www"]
 
 EXPOSE 80
 # End Nginx-PHP
