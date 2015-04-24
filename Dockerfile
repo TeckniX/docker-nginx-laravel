@@ -25,10 +25,15 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
 RUN apt-get install -y nginx
 
+# Add composer and Laravel
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN composer global require "laravel/installer=~1.1"
+
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
- 
+
 RUN mkdir -p        /var/www
 ADD build/default   /etc/nginx/sites-available/default
 RUN mkdir           /etc/service/nginx
@@ -37,6 +42,9 @@ RUN chmod +x        /etc/service/nginx/run
 RUN mkdir           /etc/service/phpfpm
 ADD build/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x        /etc/service/phpfpm/run
+
+# Set Bash env Variables
+ADD build/set_env.sh /etc/profile.d/set_term.sh
 
 EXPOSE 80
 # End Nginx-PHP
