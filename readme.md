@@ -19,6 +19,7 @@ This will bind local port 80 to the container's port 80. This means you should b
 * `docker run` - starts a new docker container
 * `-v /path/to/local/web/files:/var/www:rw` - Bind a local directory to a directory in the container for file sharing. `rw` makes it "read-write", so the container can write to the directory.
 * `-p 80:80` - Binds the local port 80 to the container's port 80, so local web requests are handled by the docker.
+* `-P` - Alternatively, binds any required network ports inside our container to our host, so local web requests are handled by the docker and you can connect to the pgsql.
 * `-d webapp` - Use the image tagged "webapp"
 * `/sbin/my_init` - Run the init scripts used to kick off long-running processes and other bootstrapping, as per [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker)
 * `--enable-insecure-key` - Enable a generated SSL key so you can SSH into the container, again as per [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker). Generate your own SSH key for production use.
@@ -38,7 +39,7 @@ laravel new <project-name>
 ```
 
 Don't forget to change the permissions on your storage folder for logs and Laravel specific cache to be created
- 
+
 ```bash
  chmod -R og+rw storage
 ```
