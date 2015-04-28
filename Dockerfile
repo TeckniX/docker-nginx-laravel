@@ -50,6 +50,6 @@ ADD build/set_env.sh /etc/profile.d/set_term.sh
 VOLUME ["/var/www"]
 
 # End Nginx-PHP and PostgreSQL port
-EXPOSE 80 443 5432
+EXPOSE 80
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
